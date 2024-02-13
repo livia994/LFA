@@ -1,25 +1,35 @@
-import random
+class Grammar:
+    def __init__(self, VN, VT, P):
+        self.VN = VN
+        self.VT = VT
+        self.P = P
 
-grammar = {
-    'S': ['aS', 'bS', 'cA'],
-    'A': ['aB'],
-    'B': ['aB', 'bB', 'c']
-}
+    def generate_valid_strings(self, n=5):
+        valid_strings = []
+        for _ in range(n):
+            valid_strings.append(self.generate_string('S'))
+        return valid_strings
 
+    def generate_string(self, symbol):
+        import random
 
-def generate_random_string(start_symbol):
-    if start_symbol not in grammar:
-        return start_symbol
-    production = random.choice(grammar[start_symbol])
-    generated_string = ''
-    for symbol in production:
-        generated_string += generate_random_string(symbol)
-    return generated_string
+        if symbol not in self.P:
+            return symbol
 
-
-if __name__ == "__main__":
-    start_symbol = 'S'
-
-    for _ in range(5):
-        random_string = generate_random_string(start_symbol)
-        print(random_string)
+        productions = self.P[symbol]
+        production = random.choice(productions)
+        string = ''
+        for s in production:
+            if s in self.VT:
+                string += s
+            else:
+                string += self.generate_string(s)
+        return string    def __init__(self, VN, VT, P):
+        self.VN = VN
+        self.VT = VT
+        self.P = P
+    def generate_valid_strings(self, n=5):
+        valid_strings = []
+        for _ in range(n):
+            valid_strings.append(self.generate_string('S'))
+        return valid_strings
