@@ -49,3 +49,7 @@ class Grammar:
                     transitions[symbol][production[1]] = production[0]
 
         return FiniteAutomaton(transitions)
+
+class FiniteAutomaton:
+    def __init__(self, transitions):
+        self.transitions = transitions
