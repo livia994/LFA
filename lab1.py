@@ -7,7 +7,7 @@ class Grammar:
     def generate_valid_strings(self, n=5):
         valid_strings = []
         for _ in range(n):
-            valid_strings.append(generate_string('S'))
+            valid_strings.append(self.generate_string('S'))
         return valid_strings
 
     def generate_string(self, symbol):
@@ -65,6 +65,7 @@ P = {
 
 grammar = Grammar(VN, VT, P)
 
+# Generate 5 valid strings
 valid_strings = grammar.generate_valid_strings(5)
 print("5 Valid Strings:")
 for string in valid_strings:
