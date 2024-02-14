@@ -33,3 +33,19 @@ class Grammar:
         for _ in range(n):
             valid_strings.append(self.generate_string('S'))
         return valid_strings
+
+    def to_finite_automaton(self):
+        from collections import defaultdict
+
+        transitions = defaultdict(dict)
+        for symbol in self.VN | self.VT:
+            transitions[symbol] = {}
+
+        for symbol in self.P:
+            for production in self.P[symbol]:
+                if len(production) == 1 and production[0] in self.VT:
+                    transitions[symbol][production[0]] = production[0]
+                elif len(production) == 2:
+                    transitions[symbol][production[1]] = production[0]
+
+        return FiniteAutomaton(transitions)
