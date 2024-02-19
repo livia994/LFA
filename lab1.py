@@ -54,6 +54,13 @@ class FiniteAutomaton:
             current_state = self.transitions[current_state][symbol]
         return True
 
+    def is_deterministic(self):
+        for state in self.transitions:
+            symbols = set(self.transitions[state].keys())
+            if len(symbols) != len(self.transitions[state]):
+                return False
+        return True
+
 # Define the grammar and Create a grammar object
 VN = {'S', 'A', 'B'}
 VT = {'a', 'b', 'c'}
@@ -80,3 +87,9 @@ if finite_automaton.accepts(input_string):
     print(f"The string '{input_string}' can be obtained via state transition.")
 else:
     print(f"The string '{input_string}' cannot be obtained via state transition.")
+
+# Check if the Finite Automaton is deterministic or non-deterministic
+if finite_automaton.is_deterministic():
+    print("The Finite Automaton is deterministic.")
+else:
+    print("The Finite Automaton is non-deterministic.")
