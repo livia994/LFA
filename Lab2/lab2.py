@@ -29,3 +29,14 @@ delta = {
 regular_grammar = fa_to_rg(Q, Sigma, delta, F)
 for state, productions in regular_grammar.items():
     print(state + " -> " + " | ".join(productions))
+def is_deterministic(Q, Sigma, delta):
+    for q in Q:
+        for symbol in Sigma:
+            transitions = [state for state, s in delta.items() if s == (q, symbol)]
+            if len(transitions) > 1:
+                return False
+    return True
+
+is_det = is_deterministic(Q, Sigma, delta)
+print("The FA is Deterministic." if is_det else "The FA is Non-Deterministic.")
+
