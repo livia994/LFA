@@ -58,11 +58,8 @@ def ndfa_to_dfa(Q, Sigma, delta, q0, F):
                 worklist.append(next_state)
             dfa_delta[(current_state, symbol)] = next_state
 
-    # Convert the resulting states from sets to strings
     dfa_states = [','.join(sorted(state)) for state in dfa_states]
     dfa_final_states = [state for state in dfa_states if any(q in F for q in state.split(','))]
-
-    # Convert the transition states from sets to strings
     dfa_delta = {(','.join(sorted(current_state)), symbol): ','.join(sorted(next_state))
                  for (current_state, symbol), next_state in dfa_delta.items()}
 
@@ -106,8 +103,8 @@ def is_deterministic(Q, Sigma, delta):
     for q in Q:
         for symbol in Sigma:
             transitions = [state for state, s in delta.items() if s == (q, symbol)]
-            if len(transitions) > 1:  # If there are multiple transitions for a state and symbol pair
-                return False  # It's an NFA
+            if len(transitions) > 1:
+                return False
     return True  # It's a DFA
 
 is_det = is_deterministic(Q, Sigma, delta)
