@@ -1,4 +1,3 @@
-import re
 
 class Token:
     def __init__(self, type, value):
@@ -48,8 +47,21 @@ class Lexer:
             if self.current_char == "-":
                 self.advance()
                 return Token("MINUS", "-")
+            if self.current_char == "*":
+                self.advance()
+                return Token("MULTIPLY", "*")
+            if self.current_char == "/":
+                self.advance()
+                return Token("DIVIDE", "/")
+            if self.current_char == "(":
+                self.advance()
+                return Token("LEFT_PAREN", "(")
+            if self.current_char == ")":
+                self.advance()
+                return Token("RIGHT_PAREN", ")")
             self.error()
         return Token("EOF", None)
+
 
 if __name__ == "__main__":
     text = "122 - 10 + 3"
