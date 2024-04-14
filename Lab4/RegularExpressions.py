@@ -1,5 +1,3 @@
-import itertools
-
 def generate_combinations(regex):
     char_sets = {
         'M': ['N', ''],
@@ -47,7 +45,7 @@ def generate_combinations(regex):
     return combinations, processed_parts
 
 def generate_valid_combinations(regexes):
-    for regex in regexes:
+    for regex in regexes:u
         combinations, processed_parts = generate_combinations(regex)
         if len(combinations) > 5:
             combinations = combinations[:5]
