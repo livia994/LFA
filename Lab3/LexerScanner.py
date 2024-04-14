@@ -55,16 +55,16 @@ class Lexer:
                 return Token("DIVIDE", "/")
             if self.current_char == "(":
                 self.advance()
-                return Token("LEFT_PAREN", "(")
+                return Token("LEFT_P", "(")
             if self.current_char == ")":
                 self.advance()
-                return Token("RIGHT_PAREN", ")")
+                return Token("RIGHT_P", ")")
             self.error()
         return Token("EOF", None)
 
 
 if __name__ == "__main__":
-    text = "122 - 10 + 3"
+    text = "(34 + 16) / 2"
     lexer = Lexer(text)
     token = lexer.get_next_token()
     while token.type != "EOF":
