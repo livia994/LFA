@@ -53,7 +53,7 @@ class Grammar:
             self.rules['C'] = ['aC', 'bC']  # Modify the production to avoid infinite loops
 
     def convertToCNF(self):
-        # Create a copy of keys to avoid RuntimeError
+        # Create a copy of keys to avoid RuntimeErrorgit
         non_terminals = list(self.rules.keys())
 
         for non_terminal in non_terminals:
