@@ -53,7 +53,6 @@ class Grammar:
             self.rules['C'] = ['aC', 'bC']  # Modify the production to avoid infinite loops
 
     def convertToCNF(self):
-        # Create a copy of keys to avoid RuntimeErrorgit
         non_terminals = list(self.rules.keys())
 
         for non_terminal in non_terminals:
@@ -94,16 +93,18 @@ sample_grammar = {
     'D': ['AB']
 }
 
-
+# Instantiate Grammar object and apply transformations
 grammar = Grammar(sample_grammar)
 grammar.removeLambda()
 grammar.convertToCNF()
 
-
+# Print transformed rules
 grammar.printRules()
+
+# Unit tests for the Grammar class
 class TestGrammar(unittest.TestCase):
     def test_removeLambda(self):
-
+        # Test case for removeLambda method
         sample_grammar = {
             'S': ['AB', 'A', 'B'],
             'A': ['', 'aA'],
@@ -121,6 +122,7 @@ class TestGrammar(unittest.TestCase):
             self.assertCountEqual(grammar.rules[non_terminal], productions)
 
     def test_convertToCNF(self):
+        # Test case for convertToCNF method
         sample_grammar = {
             'S': ['AC', 'bA', 'B', 'aA'],
             'A': ['', 'aS', 'ABab'],
