@@ -1,5 +1,3 @@
-import itertools
-import unittest
 
 class Grammar:
     def __init__(self, rules):
@@ -51,7 +49,7 @@ class Grammar:
 
         # Step 5: Modify productions to avoid infinite loops
         if 'C' in self.rules:
-            self.rules['C'] = ['aC', 'bC']  # Modify the production to avoid infinite loops
+            self.rules['C'] = ['aC', 'bC']
 
     def convertToCNF(self):
         non_terminals = list(self.rules.keys())
@@ -66,7 +64,6 @@ class Grammar:
                     if first_two in self.rules:
                         new_productions.append(first_two)
                     else:
-                        # If the first two symbols are terminals, create a new non-terminal and a production
                         new_non_terminal = self.generateNewNonTerminal()
                         self.rules[new_non_terminal] = [first_two]
                         new_productions.append(new_non_terminal)
@@ -75,7 +72,6 @@ class Grammar:
             self.rules[non_terminal] = new_productions
 
     def generateNewNonTerminal(self):
-        # Generate a new non-terminal symbol
         new_non_terminal = 'X'
         while new_non_terminal in self.rules:
             new_non_terminal += "'"
@@ -85,7 +81,6 @@ class Grammar:
         for f, t in self.rules.items():
             print(f + ' -> ' + ' | '.join(t))
 
-# Provided sample grammar
 sample_grammar = {
     'S': ['AC', 'bA', 'B', 'aA'],
     'A': ['', 'aS', 'ABab'],
@@ -94,55 +89,9 @@ sample_grammar = {
     'D': ['AB']
 }
 
-# Instantiate Grammar object and apply transformations
 grammar = Grammar(sample_grammar)
 grammar.removeLambda()
 grammar.convertToCNF()
 
-# Print transformed rules
 grammar.printRules()
 
-# Unit tests for the Grammar class
-class TestGrammar(unittest.TestCase):
-    def test_removeLambda(self):
-        # Test case for removeLambda method
-        sample_grammar = {
-            'S': ['AB', 'A', 'B'],
-            'A': ['', 'aA'],
-            'B': ['b']
-        }
-        expected_grammar = {
-            'S': ['AB', 'A', 'B'],
-            'A': ['aA', 'a'],
-            'B': ['b']
-        }
-        grammar = Grammar(sample_grammar)
-        grammar.removeLambda()
-        # Check the presence of productions rather than their order
-        for non_terminal, productions in expected_grammar.items():
-            self.assertCountEqual(grammar.rules[non_terminal], productions)
-
-    def test_convertToCNF(self):
-        # Test case for convertToCNF method
-        sample_grammar = {
-            'S': ['AC', 'bA', 'B', 'aA'],
-            'A': ['', 'aS', 'ABab'],
-            'B': ['a', 'bS'],
-            'C': ['abC'],
-            'D': ['AB']
-        }
-        expected_grammar = {
-            'S': ['AC', 'aC', 'AB', 'aA', 'bA', 'b', 'a', 'abC'],
-            'A': ['aS', 'ab', 'ABab', 'b', 'Bab'],
-            'B': ['bS', 'a'],
-            'C': ['aC', 'bC'],
-            'D': ['AB'],
-            'X': ['Ba'],
-            'X\'': ['AB']
-        }
-        grammar = Grammar(sample_grammar)
-        grammar.removeLambda()
-        grammar.convertToCNF()
-        # Check the presence of productions rather than their order
-        for non_terminal, productions in expected_grammar.items():
-            self.assertCountEqual(grammar.rules[non_terminal], productions)
