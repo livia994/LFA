@@ -36,17 +36,18 @@ class Grammar:
         for non_terminal, productions in self.rules.items():
             new_productions = []
             for production in productions:
-                null_indices = [i for i, symbol in enumerate(production) if symbol in nullable_symbols]
-                if null_indices:
-                    combinations = itertools.product([0, 1], repeat=len(null_indices))
-                    for combination in combinations:
-                        new_production = ''.join([symbol for i, symbol in enumerate(production) if
-                                                  i not in null_indices or combination[null_indices.index(i)] == 1])
-                        if new_production != '':
+                new_production = ''
+                for symbol in production:
+                    if symbol in self.rules or symbol == '':
+                        if new_production:
                             new_productions.append(new_production)
-                else:
-                    new_productions.append(production)
-            self.rules[non_terminal] = list(set(new_productions))
+                            new_production = ''
+                        new_productions.append(symbol)
+                    else:
+                        new_production += symbol
+                if new_production:
+                    new_productions.append(new_production)
+            self.rules[non_terminal] = new_productions
 
         # Step 5: Modify productions to avoid infinite loops
         if 'C' in self.rules:
