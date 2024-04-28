@@ -150,7 +150,7 @@ class Parser:
         return result
 # Main function
 def main():
-    text = "(34 + 16) / 2"
+    text = "(34 + 16) / 4"
     lexer = Lexer(text)
     tokens = []
     while True:
