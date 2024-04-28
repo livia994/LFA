@@ -47,7 +47,7 @@ class Grammar:
                     new_productions.append(new_production)
             self.rules[non_terminal] = new_productions
 
-        # Step 5: Modify productions to avoid infinite loops
+        # Step 5: Modify productions to avoid infinite loops;
         if 'C' in self.rules:
             self.rules['C'] = ['aC', 'bC']
 
