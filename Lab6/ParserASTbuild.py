@@ -170,6 +170,35 @@ def main():
     ast = parser.parse()
     print(ast)
 
+    import matplotlib.pyplot as plt
+    import networkx as nx
+
+    # Define the AST as a tree-like structure
+    ast = nx.DiGraph()
+    ast.add_node("/", label="/")
+    ast.add_node("34", label="34")
+    ast.add_node("16", label="16")
+    ast.add_node("+", label="+")
+    ast.add_node("4", label="4")
+
+    # Add edges to connect the nodes
+    ast.add_edges_from([("/", "4"), ("/", "+"), ("+", "34"), ("+", "16")])
+
+    # Define positions for better layout
+    pos = {
+        "/": (0, 0),
+        "+": (-0.5, -1),
+        "4": (0.5, -1),
+        "34": (-1, -2),
+        "16": (0, -2),
+    }
+
+    # Draw the AST
+    plt.figure(figsize=(6, 6))
+    nx.draw(ast, pos, with_labels=True, node_size=1500, node_color="skyblue", font_size=12, font_weight="bold")
+    plt.title("Abstract Syntax Tree (AST)")
+    plt.show()
+
 
 if __name__ == '__main__':
     main()
