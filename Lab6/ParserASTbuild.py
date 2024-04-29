@@ -152,7 +152,6 @@ class Parser:
         return result
 
 # Main function
-# Main function
 def main():
     text = "(34 + 16) / 4"
     lexer = Lexer(text)
