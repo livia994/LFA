@@ -86,7 +86,7 @@ class BinOp:
     def __str__(self):
         return f'({self.left} {self.op} {self.right})'
 
-# Define class Parser
+# Define Parser class
 class Parser:
     def __init__(self, lexer):
         self.lexer = lexer
